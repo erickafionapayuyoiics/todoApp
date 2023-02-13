@@ -10,17 +10,18 @@ use App\Http\Controllers\Admin\Auth\RegisterController;
 
 
 Route::prefix("admin")->group(function(){
-    Route::get('/register',[RegisterController::class, 'showRegistrationForm']);
-    //Route::get('/register', [RegisterController::class, 'register'])->name('admin.register');
-    Route::post('/register',[RegisterController::class, 'register'])->name('admin.register');
-
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('admin.showlogin');
-    Route::post('/login',[LoginController::class, 'login'])->name('admin.login');
-    Route::post('/redirect', [LoginController::class, 'redirectLogin'])->name('admin.redirect');
-
-
+    Route::prefix("register")->group(function(){
+        Route::get('/',[RegisterController::class, 'showRegistrationForm']);
+        Route::post('/',[RegisterController::class, 'register'])->name('admin.register');    
+    });
+   
+    Route::prefix("login")->group(function(){
+        Route::get('/', [LoginController::class, 'showLoginForm'])->name('admin.showlogin');
+        Route::post('/',[LoginController::class, 'login'])->name('admin.login');
+    });
+    
    Route::middleware(['auth:admin'])->group(function(){
-    Route::get('/home', [AdminController::class, 'index'])->name('admin.home');
+        Route::get('/home', [AdminController::class, 'index'])->name('admin.home');
    });
 
 

@@ -24,16 +24,6 @@ class AuthAdmin
             return redirect('admin/login');
         }
         
-        /*$guards = empty($guards) ? [null] : $guards;
-
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                if($guard === 'admin')
-                {
-                    return redirect(RouteServiceProvider::ADMIN);
-                }
-            }
-        }*/
 
         return $next($request);
     }
