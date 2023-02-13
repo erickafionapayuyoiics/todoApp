@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/home';
     public const ADMIN = 'admin/home';
     protected $namespace = 'App\Http\Controllers';
+    //protected $adminnamespace = 'App\Http\Controllers\Admin';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -40,15 +41,17 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/web-user.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web-user.php'));
     }
 
     protected function mapWebAdminRoutes()
     {
         Route::middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/web-admin.php'));
+            ->prefix('admin')
+            ->as('admin.')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web-admin.php'));
     }
 
     protected function mapApiRoutes()
