@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./docker/apache
+    container_name: todo.apache
+    ports:
+      - 8083:80
+    privileged: true
+    volumes:
+      - ./:/var/www/html
+  mysql:
+    image: mysql:5.7
+    container_name: todo.db
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: todo_db
+      MYSQL_USER: default
+      MYSQL_PASSWORD: secret
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3307:3306
+  mail:
+    container_name: todo.mail
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - 8025:8025
