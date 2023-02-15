@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Models\Task;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+
 
 class UserManagementController extends Controller
 {
@@ -23,13 +25,9 @@ class UserManagementController extends Controller
         return view('admin.adduser');
     }
 
-    public function insert(Request $request)
+    public function insert(UserStoreRequest $request)
     {
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        User::create($request->getData());
 
         return redirect()->route('admin.users');
     }
@@ -42,14 +40,14 @@ class UserManagementController extends Controller
 
     public function showTasks(User $user)
     {
-        $tasks = Task::whereUserId($user->id)->get();
+        $tasks = $user->tasks;
         
         return view('admin.usertask', compact('user', 'tasks'));
     }
 
-    public function update(User $user, Request $request){
+    public function update(User $user, UserUpdateRequest $request){
 
-        $user->update(['name' => $request->name, 'email' => $request->email]);
+        $user->update($request->validated());
 
 
         return redirect()->route('admin.users');
