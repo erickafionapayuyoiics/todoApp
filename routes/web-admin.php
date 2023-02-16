@@ -21,18 +21,23 @@ use App\Http\Controllers\Admin\Auth\UserManagementController;
         Route::get('/', [LoginController::class, 'showLoginForm'])->name('showlogin');
         Route::post('/',[LoginController::class, 'login'])->name('login');
     });
-    
-    Route::get('/tasks', [TaskController::class, 'showAll'])->name('tasks');
-    Route::get('/users', [UserManagementController::class, 'showAll'])->name('users');
-    Route::get('/add/user', [UserManagementController::class, 'showAdduser'])->name('add');
-    Route::post('/add/user', [UserManagementController::class, 'insert'])->name('adduser');
-    Route::get('/show/{user}', [UserManagementController::class, 'showUser'] )->name('showuser');
-    Route::get('/tasks/{user}', [UserManagementController::class, 'showTasks'] )->name('showtasks');
-    Route::put('/update/{user}', [UserManagementController::class, 'update'] )->name('edituser');
-    Route::delete('/delete/{user}', [UserManagementController::class, 'delete'] )->name('delete');
 
    Route::middleware(['auth:admin'])->group(function(){
         Route::get('/home', [AdminController::class, 'index'])->name('home');
+        Route::prefix("/tasks")->group(function(){
+            Route::get('/', [TaskController::class, 'showAll'])->name('tasks');
+            Route::get('/{user}', [UserManagementController::class, 'showTasks'] )->name('showtasks');
+        });
+
+        Route::prefix("/add")->group(function(){
+            Route::get('/user', [UserManagementController::class, 'showAdduser'])->name('add');
+            Route::post('/user', [UserManagementController::class, 'insert'])->name('adduser');
+        });
+        
+        Route::get('/users', [UserManagementController::class, 'showAll'])->name('users');
+        Route::get('/show/{user}', [UserManagementController::class, 'showUser'] )->name('showuser');
+        Route::put('/{user}', [UserManagementController::class, 'update'] )->name('edituser');
+        Route::delete('/{user}', [UserManagementController::class, 'delete'] )->name('delete');
    });
 
 

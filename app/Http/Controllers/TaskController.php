@@ -17,10 +17,10 @@ class TaskController extends Controller
     }
 
 
-    public function insert(Request $request){
+    public function insert(TaskStoreRequest $request){
         
 
-        $task = Task::create(['title' => $request->title,  'user_id' => Auth::user()->id ]);
+        Task::create($request->validated());
 
         return redirect()->route('home');
     }
@@ -31,9 +31,9 @@ class TaskController extends Controller
         return view('update', compact('task'));
     }
 
-    public function update(Task $task, Request $request){
+    public function update(Task $task, TaskUpdateRequest $request){
 
-        $task->update(['title' => $request->title]);
+        $task->update($request->validated());
 
 
         return redirect()->route('home');
