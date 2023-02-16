@@ -22,8 +22,8 @@ Route::middleware(['auth:web'])->group(function(){
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::prefix("/task")->as('data.')->group(function(){
-        Route::get('/show/{task}', [TaskController::class, 'show'] )->name('show');
-        Route::post('/insert/{user}', [TaskController::class, 'insert'] )->name('insert');
+        Route::get('/{task}', [TaskController::class, 'show'] )->name('show');
+        Route::post('/{user}', [TaskController::class, 'insert'] )->name('insert');
         Route::put('/{task}', [TaskController::class, 'update'] )->name('update');
         Route::delete('/{task}', [TaskController::class, 'delete'] )->name('delete');
     });

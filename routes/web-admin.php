@@ -31,11 +31,11 @@ use App\Http\Controllers\Admin\Auth\UserManagementController;
 
         Route::prefix("/add")->group(function(){
             Route::get('/user', [UserManagementController::class, 'showAdduser'])->name('add');
-            Route::post('/user', [UserManagementController::class, 'insert'])->name('adduser');
+            Route::post('/', [UserManagementController::class, 'insert'])->name('insert');
         });
-        
+
         Route::get('/users', [UserManagementController::class, 'showAll'])->name('users');
-        Route::get('/show/{user}', [UserManagementController::class, 'showUser'] )->name('showuser');
+        Route::get('/{user}', [UserManagementController::class, 'showUser'] )->name('showuser');
         Route::put('/{user}', [UserManagementController::class, 'update'] )->name('edituser');
         Route::delete('/{user}', [UserManagementController::class, 'delete'] )->name('delete');
    });

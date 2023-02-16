@@ -28,8 +28,8 @@ class UserManagementController extends Controller
     public function insert(UserStoreRequest $request)
     {
         User::create($request->getData());
-
         return redirect()->route('admin.users');
+ 
     }
 
     public function showUser(User $user)
