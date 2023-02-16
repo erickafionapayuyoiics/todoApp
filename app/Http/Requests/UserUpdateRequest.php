@@ -27,7 +27,8 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 
+                        Rule::unique('users')->ignore(request()->user->id)],
         ];
     }
 
@@ -35,12 +36,6 @@ class UserUpdateRequest extends FormRequest
     {
         $data = $this->only('name', 'email');
 
-        Validator::make($data, [
-            'email' => [
-                'required',
-                Rule::unique('users')->ignore($user->id),
-            ],
-        ]);
         return $data;
     }
 

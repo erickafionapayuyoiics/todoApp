@@ -14,21 +14,13 @@
                     <th style = "width:20%">User ID</th>
                     <th style = "width:20%">User Name</th>
                     <th style = "width:80%">Task</th>
-
                 </tr>
                 
                 @foreach($tasks as $task)
                 <tr>
-                    <td>
-                    {{$task->user_id}}
-                    </td>
-                    <td>
-                    {{$user->name}}
-                    </td>
-                    <td>
-                    {{$task->title}}
-                    </td>
-            
+                    <td>{{$task->user_id}}</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$task->title}}</td>
                 </tr>
                 @endforeach
                 @endif
