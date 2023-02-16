@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TaskStoreRequest;
+use App\Http\Requests\TaskUpdateRequest;
 
 class TaskController extends Controller
 {
@@ -20,7 +22,7 @@ class TaskController extends Controller
     public function insert(TaskStoreRequest $request){
         
 
-        Task::create($request->validated());
+        Task::create(['title' => $request->title, 'user_id' => Auth::user()->id]);
 
         return redirect()->route('home');
     }

@@ -27,9 +27,9 @@ class UserManagementController extends Controller
 
     public function insert(UserStoreRequest $request)
     {
-        User::create($request->getData());
-
+        User::create($request->validated());
         return redirect()->route('admin.users');
+ 
     }
 
     public function showUser(User $user)
@@ -47,7 +47,7 @@ class UserManagementController extends Controller
 
     public function update(User $user, UserUpdateRequest $request){
 
-        $user->update($request->validated());
+        $user->update($request->getData());
 
 
         return redirect()->route('admin.users');

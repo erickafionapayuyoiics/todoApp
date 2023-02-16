@@ -24,11 +24,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(User $user)
     {
-        
+        $user = Auth::user();
         $tasks = $user->tasks;
         return view('home', compact('tasks'));
+        
     }
 
 }
