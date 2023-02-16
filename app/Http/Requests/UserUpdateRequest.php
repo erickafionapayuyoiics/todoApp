@@ -37,6 +37,4 @@ class UserUpdateRequest extends FormRequest
 
         return $data;
     }
-
-    
 }

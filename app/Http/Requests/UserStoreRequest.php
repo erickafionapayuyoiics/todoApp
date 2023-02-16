@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 
-
 class UserStoreRequest extends FormRequest
 {
     /**
@@ -36,10 +35,9 @@ class UserStoreRequest extends FormRequest
     public function getData() : array
     {
         $data = $this->only('name', 'email');
-        
+
         $data['password'] = Hash::make($this->password);
 
         return $data;
     }
-
 }
