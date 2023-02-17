@@ -18,7 +18,9 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
+
     public const ADMIN = 'admin/home';
+
     protected $namespace = 'App\Http\Controllers';
     //protected $adminnamespace = 'App\Http\Controllers\Admin';
 
@@ -34,8 +36,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
         $this->mapWebAdminRoutes();
         $this->mapApiRoutes();
-
-        
     }
 
     protected function mapWebRoutes()
@@ -60,6 +60,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
     }
+
     /**
      * Configure the rate limiters for the application.
      *

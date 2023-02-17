@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Http\Middleware\AuthAdmin;
+use App\Http\Requests\RegisterRequest;
 use App\Models\Admin;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Middleware\AuthAdmin;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -35,7 +35,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "admin/home";
+    protected $redirectTo = 'admin/home';
 
     /**
      * Create a new controller instance.
@@ -47,7 +47,8 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function showRegistrationForm(){
+    public function showRegistrationForm()
+    {
         return view('admin.register');
     }
 
@@ -72,6 +73,7 @@ class RegisterController extends Controller
     {
         return Auth::guard('admin');
     }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -86,6 +88,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -94,14 +97,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         return Admin::create([
             'name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
-        
     }
 }

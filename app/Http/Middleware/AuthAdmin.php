@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Support\Facades\Auth;
+
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthAdmin
 {
@@ -16,14 +17,11 @@ class AuthAdmin
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        if(Auth::guard('admin')->user()){
+        if (Auth::guard('admin')->user()) {
             return $next($request);
-        }
-        else
-        {
+        } else {
             return redirect('admin/login');
         }
-        
 
         return $next($request);
     }
