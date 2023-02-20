@@ -45,7 +45,6 @@ class UserManagementController extends Controller
     public function update(User $user, UserUpdateRequest $request)
     {
         $user->update($request->getData());
-
         return redirect()->route('admin.users');
     }
 

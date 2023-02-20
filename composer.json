@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "spatie/laravel-medialibrary": "^10.0.0",
         "spatie/laravel-visit": "^1.0"
     },
     "require-dev": {
