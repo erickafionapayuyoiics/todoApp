@@ -70,14 +70,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        if(request()->hasFile('image')){
+        if (request()->hasFile('image')) {
             $user->addMediaFromRequest('image')
             ->usingName($user->email)
             ->toMediaCollection('profile_image');
         }
-        
+
         return $user;
     }
-
-
 }
