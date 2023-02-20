@@ -21,6 +21,7 @@
             @foreach($users as $user)
           <tr>
             <td style = "width:40%">
+                <img class="img-fluid rounded-circle me-1" width="35" src = "{{$user->getFirstMediaUrl('profile_image') ? $user->getFirstMediaUrl('profile_image') : asset('/images/default.png')}}"/>
                 {{$user->name}}
                 </td>
                 <td style = "width:40%">
