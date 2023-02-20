@@ -8,7 +8,7 @@
                 <div class="card-header" style = "background-color: #34495E; color: #FFFFFF">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.register') }}">
+                    <form method="POST" action="{{ route('admin.register') }}" enctype='multipart/form-data'>
                         @csrf
 
                         <div class="row mb-3">

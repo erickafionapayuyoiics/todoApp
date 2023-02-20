@@ -50,11 +50,18 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
+                            
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img class="img-fluid rounded-circle me-1" width="30" height="30" src = "{{Auth::user()->getFirstMediaUrl('profile_image') ? Auth::user()->getFirstMediaUrl('profile_image') : asset('/images/default.png')}}"/>
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    
+                                    <a class="dropdown-item" href = "{{route('editprofile')}}">
+                                        @csrf 
+                                        @method('put')
+                                        {{ __('Edit Profile') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
