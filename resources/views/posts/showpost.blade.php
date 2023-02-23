@@ -7,6 +7,7 @@
                 <div class="card">
                     <div id = "header" class="card-header">Post</div>
                     <div class="card-body">
+                        <form id = "post_form">
                             <div class="row mb-3">
                                 <label for="title" class="col-md-4 col-form-label text-md-end">Post Title</label>
 
@@ -26,6 +27,7 @@
                                     <button class="btn btn-outline-danger" type="submit" id="delete" onclick = "delete_post()">Delete</button>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -42,10 +44,13 @@
                     console.log(response.data);
                     data = response.data;
                     headerdiv.innerHTML += `<input id="title" type="title" class="form-control @error('title') is-invalid @enderror" name="title" value="${data.title}" required autocomplete="title" autofocus>` ;
+                    headerdiv.innerHTML += `@error('title')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror`
                     var bodydiv = document.getElementById("contentdiv");
                     console.log(response.data);
                     data = response.data;
-                    bodydiv.innerHTML += `<textarea class="form-control" id="content" name="content" rows="3">${data.content}</textarea>` ;
+                    bodydiv.innerHTML += `<textarea class="form-control" id="content" name="content" rows="3" required>${data.content}</textarea>` ;
+                    bodydiv.innerHTML += `@error('title')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror`
+
                 })
                 .catch(function (error){
                     //handle error

@@ -7,18 +7,29 @@
                 <div class="card">
                     <div id = "header" class="card-header">Post</div>
                     <div class="card-body">
+                        <form id = "post_form">
                             <div class="row mb-3">
                                 <label for="title" class="col-md-4 col-form-label text-md-end">Post Title</label>
 
                                 <div id = "titlediv" class="col-md-6">
                                     <input id="title" type="title" class="form-control @error('title') is-invalid @enderror" name="title" required autocomplete="title" autofocus>
+                                    @error('title')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label for="content" class="col-md-4 col-form-label text-md-end"></label>
                                 <div id = "contentdiv" class="col-md-6">
-                                    <textarea class="form-control" id="content" name="content" rows="3" placeholder="Write post..."></textarea>
+                                    <textarea class="form-control @error('title') is-invalid @enderror" id="content" name="content" rows="3" placeholder="Write post..." required></textarea>
+                                    @error('title')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -27,6 +38,7 @@
                                 <button class="btn btn-outline-primary" type="submit" id="update" onclick = "add_post()">Add post</button>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
             </div>
