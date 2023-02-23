@@ -20,6 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/showposts', [PostApiController::class, 'showAll']);
 Route::get('/showpost/{post}', [PostApiController::class, 'findPost']);
-Route::put('/update/{post}', [PostApiController::class, 'update']);
 Route::post('/add', [PostApiController::class, 'add']);
+Route::put('/update/{post}', [PostApiController::class, 'update']);
 Route::delete('/delete/{post}', [PostApiController::class, 'delete']);

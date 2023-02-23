@@ -12,12 +12,9 @@
                                 <label for="title" class="col-md-4 col-form-label text-md-end">Post Title</label>
 
                                 <div id = "titlediv" class="col-md-6">
-                                    <input id="title" type="title" class="form-control @error('title') is-invalid @enderror" name="title" required autocomplete="title" autofocus>
-                                    @error('title')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                    <input id="title" type="title" class="form-control" name="title" required autocomplete="title" autofocus>
+                                        <span id = "invalid-title" style = "color:red;">
                                         </span>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -25,11 +22,8 @@
                                 <label for="content" class="col-md-4 col-form-label text-md-end"></label>
                                 <div id = "contentdiv" class="col-md-6">
                                     <textarea class="form-control @error('title') is-invalid @enderror" id="content" name="content" rows="3" placeholder="Write post..." required></textarea>
-                                    @error('title')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <span id = "invalid-content" style = "color:red;">
+                                    </span>
                                 </div>
                             </div>
 
@@ -41,10 +35,12 @@
                         </form>
                     </div>
                 </div>
+                <ul id = "error-list" class = "list-group"></ul>
             </div>
         </div>
     </div>
         <script>
+  
             
             function add_post(){
                 var laravelToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -53,11 +49,28 @@
                     content: document.getElementById('content').value,
                 })
                 .then(function (response) {
+                    
                     alert('Added successfully.');
                     location.href = '/post'
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    var errortitle = document.getElementById('invalid-title')
+                    var errorcontent = document.getElementById('invalid-content')
+                    errortitle.innerHTML = ""
+                    errorcontent.innerHTML = ""
+                    errors = Object.values(error.response.data.errors);
+                    if(document.getElementById('title').value == "" && document.getElementById('content').value ==""){
+                        errortitle.innerHTML = errors[0]
+                        errorcontent.innerHTML = errors[1]
+                    }
+                    else if(document.getElementById('title').value ==""){
+                        errortitle.innerHTML = errors[0]
+                    }   
+                    else if(document.getElementById('content').value ==""){
+                        errorcontent.innerHTML = errors[0]
+                    }                    
+                    
+
                 });
                 ;
             };

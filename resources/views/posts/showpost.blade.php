@@ -10,8 +10,9 @@
                         <form id = "post_form">
                             <div class="row mb-3">
                                 <label for="title" class="col-md-4 col-form-label text-md-end">Post Title</label>
-
                                 <div id = "titlediv" class="col-md-6">
+                                </div>
+                                <div id = "invalid-title" style = "color:red; margin-left:35%" class="col-md-6"></div>
                                 </div>
                             </div>
 
@@ -19,6 +20,7 @@
                                 <label for="content" class="col-md-4 col-form-label text-md-end"></label>
                                 <div id = "contentdiv" class="col-md-6">
                                 </div>
+                                <span id = "invalid-content" style = "color:red; margin-left:35%" class="col-md-6"></span>
                             </div>
 
                             <div class="row mb-3">
@@ -44,12 +46,10 @@
                     console.log(response.data);
                     data = response.data;
                     headerdiv.innerHTML += `<input id="title" type="title" class="form-control @error('title') is-invalid @enderror" name="title" value="${data.title}" required autocomplete="title" autofocus>` ;
-                    headerdiv.innerHTML += `@error('title')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror`
                     var bodydiv = document.getElementById("contentdiv");
                     console.log(response.data);
                     data = response.data;
                     bodydiv.innerHTML += `<textarea class="form-control" id="content" name="content" rows="3" required>${data.content}</textarea>` ;
-                    bodydiv.innerHTML += `@error('title')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror`
 
                 })
                 .catch(function (error){
@@ -69,7 +69,22 @@
                     location.href = '/post'
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    var errortitle = document.getElementById('invalid-title')
+                    var errorcontent = document.getElementById('invalid-content')
+                    errortitle.innerHTML = "";
+                    errorcontent.innerHTML = "";
+                    errors = Object.values(error.response.data.errors);
+                    console.log(errors)
+                    if(document.getElementById('title').value == "" && document.getElementById('content').value == ""){
+                        errortitle.innerHTML = errors[0]
+                        errorcontent.innerHTML = errors[1]
+                    }
+                    else if(document.getElementById('title').value ==""){
+                        errortitle.innerHTML = errors[0]
+                    }   
+                    else if(document.getElementById('content').value ==""){
+                        errorcontent.innerHTML = errors[0]
+                    }                    
                 });
                 ;
             }
